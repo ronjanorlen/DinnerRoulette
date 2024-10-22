@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Name": "Test",
+    "Ingredients": "Test, test, test",
+    "Instructions": "Ett tv\u00E5 tre",
+    "Category": "Test"
+  },
+  {
+    "Id": 2,
+    "Name": "Test 2",
+    "Ingredients": "Ingrediens 1, ingrediens 2, ingrediens 3",
+    "Instructions": "Tryck h\u00E4r och tryck d\u00E4r",
+    "Category": "Test"
+  },
+  {
+    "Id": 3,
+    "Name": "Hej",
+    "Ingredients": "Hej",
+    "Instructions": "Hej",
+    "Category": "Hej"
+  }
+]
