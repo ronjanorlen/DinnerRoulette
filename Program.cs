@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using Recipes; // Imorterar recipe-klass från recipes.cs
+using Recipes; // Importerar recipe-klass från recipes.cs
 
 class Program
 {
@@ -62,7 +62,7 @@ class Program
         if (recipeList.Count == 0)
         {
             Console.WriteLine("Det finns inga recept att hämta..");
-            return; // Avbryt om det inte finns några recept at hämta
+            return; // Avbryt om det inte finns några recept att hämta
         }
 
         // Annars loopa igenom listan med recept
@@ -72,31 +72,31 @@ class Program
             Console.WriteLine($"Kategori: {recipe.Category}\n");
         }
 
-        // Loop för ett recept
+        // Loop för att välja ett recept
+        Console.WriteLine("Ange ID för det recept du vill titta på eller tryck på B för återgå till huvudmenyn.");
         while (true)
         {
-            // Välj ett recept
-        Console.WriteLine("Ange ID för det recept du vill titta på eller tryck på B för att gå tillbaka.");
-        string? input = Console.ReadLine();
+            string? input = Console.ReadLine();
 
-        if (input?.ToUpper() == "B")
-        {
-            // Gå tillbaka
-            break;
+            if (input?.ToUpper() == "B")
+            {
+                // Gå tillbaka till menyn
+                Console.Clear();
+                DisplayMenu();
+            }
+
+            if (int.TryParse(input, out int recipeId))
+            {
+                // Visa receptet som valts
+                ShowSingleRecipe(recipeId);
+            }
+            else if (!string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Ogiltigt val, försök igen.");
+            }
         }
 
-        if (int.TryParse(input, out int recipeId))
-        {
-            // Visa receptet som valts
-            ShowSingleRecipe(recipeId);
-        }
-        else if (!string.IsNullOrWhiteSpace(input))
-        {
-            Console.WriteLine("Ogiltigt val, försök igen.");
-        }
-        }
 
-        
     }
 
     // Visa valt recept
@@ -113,9 +113,28 @@ class Program
             Console.WriteLine($"Instruktioner:\n {recipe.Instructions}\n");
             Console.WriteLine($"Kategori:\n {recipe.Category}\n");
         }
-        else 
+        else
         {
             Console.WriteLine("Receptet hittades inte.");
+        }
+
+        // Gå tillbaka
+        Console.WriteLine("Tryck på B för att gå tillbaka till alla recept.");
+        while (true)
+        {
+            string? input = Console.ReadLine();
+
+            if (input?.ToUpper() == "B")
+            {
+                // Gå tillbaka till alla recept
+                Console.Clear();
+                ShowAllRecipes();
+            }
+
+            else
+            {
+                Console.WriteLine("Ogiltigt val, försök igen.");
+            }
         }
     }
 
