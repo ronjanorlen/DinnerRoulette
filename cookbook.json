@@ -1,23 +1,80 @@
 [
   {
     "Id": 1,
-    "Name": "Test",
-    "Ingredients": "Test, test, test",
-    "Instructions": "Ett tv\u00E5 tre",
-    "Category": "Test"
+    "Name": "Ronjas t\u00E5rta",
+    "Ingredients": [
+      "T\u00E5rtbotten",
+      "Gr\u00E4dde",
+      "Jordgubbssylt",
+      "Marsans\u00E5s"
+    ],
+    "Instructions": [
+      "L\u00E4gg marsans\u00E5s p\u00E5 t\u00E5rtbotten",
+      "L\u00E4gg p\u00E5 sylt",
+      "Servera med gr\u00E4dde"
+    ],
+    "Category": "T\u00E5rta"
   },
   {
     "Id": 2,
-    "Name": "Test 2",
-    "Ingredients": "Ingrediens 1, ingrediens 2, ingrediens 3",
-    "Instructions": "Tryck h\u00E4r och tryck d\u00E4r",
-    "Category": "Test"
+    "Name": "Pannkakor",
+    "Ingredients": [
+      "\u00C4gg",
+      "Sm\u00F6r",
+      "Mj\u00F6l",
+      "Mj\u00F6k",
+      "Salt"
+    ],
+    "Instructions": [
+      "Blanda alla ingredienser",
+      "Stek i stekpanna"
+    ],
+    "Category": "Middag"
   },
   {
     "Id": 3,
-    "Name": "Hej",
-    "Ingredients": "Hej",
-    "Instructions": "Hej",
-    "Category": "Hej"
+    "Name": "Test",
+    "Ingredients": [
+      "Test, test test"
+    ],
+    "Instructions": [
+      "hej o h\u00E5, japp"
+    ],
+    "Category": "test"
+  },
+  {
+    "Id": 4,
+    "Name": "Japp",
+    "Ingredients": [
+      "japp, dkjfgl"
+    ],
+    "Instructions": [
+      "gndsklgs"
+    ],
+    "Category": "test"
+  },
+  {
+    "Id": 5,
+    "Name": "Test",
+    "Ingredients": [
+      "Test, test, test"
+    ],
+    "Instructions": [
+      "test, tetst"
+    ],
+    "Category": "test"
+  },
+  {
+    "Id": 6,
+    "Name": "Test",
+    "Ingredients": [
+      "test",
+      "test",
+      "test"
+    ],
+    "Instructions": [
+      "test"
+    ],
+    "Category": "test"
   }
 ]
