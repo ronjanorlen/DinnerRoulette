@@ -1,80 +1,176 @@
 [
   {
     "Id": 1,
-    "Name": "Ronjas t\u00E5rta",
+    "Name": "Namn",
     "Ingredients": [
-      "T\u00E5rtbotten",
-      "Gr\u00E4dde",
-      "Jordgubbssylt",
-      "Marsans\u00E5s"
+      "ingrediens",
+      "ingrediens"
     ],
     "Instructions": [
-      "L\u00E4gg marsans\u00E5s p\u00E5 t\u00E5rtbotten",
-      "L\u00E4gg p\u00E5 sylt",
-      "Servera med gr\u00E4dde"
+      "instruktion",
+      "instruktion"
     ],
-    "Category": "T\u00E5rta"
+    "Category": [
+      "Kategori 1"
+    ]
   },
   {
     "Id": 2,
-    "Name": "Pannkakor",
+    "Name": "Namn",
     "Ingredients": [
-      "\u00C4gg",
-      "Sm\u00F6r",
-      "Mj\u00F6l",
-      "Mj\u00F6k",
-      "Salt"
+      "Ingrediens",
+      "ingrediens"
     ],
     "Instructions": [
-      "Blanda alla ingredienser",
-      "Stek i stekpanna"
+      "instruktion",
+      "instruktion"
     ],
-    "Category": "Middag"
+    "Category": [
+      "Kategori 1"
+    ]
   },
   {
     "Id": 3,
-    "Name": "Test",
+    "Name": "Namn",
     "Ingredients": [
-      "Test, test test"
+      "ingrediens",
+      "ingrediens"
     ],
     "Instructions": [
-      "hej o h\u00E5, japp"
+      "instruktion",
+      "instruktion"
     ],
-    "Category": "test"
+    "Category": [
+      "Kategori 1"
+    ]
   },
   {
     "Id": 4,
-    "Name": "Japp",
+    "Name": "namn",
     "Ingredients": [
-      "japp, dkjfgl"
+      "ingreidnd, ingredn,"
     ],
     "Instructions": [
-      "gndsklgs"
+      "intrusk",
+      "nstr,m,"
     ],
-    "Category": "test"
+    "Category": [
+      "Kategori 1"
+    ]
   },
   {
     "Id": 5,
-    "Name": "Test",
+    "Name": "namn",
     "Ingredients": [
-      "Test, test, test"
+      "ingreinde"
     ],
     "Instructions": [
-      "test, tetst"
+      "instrukiiotn"
     ],
-    "Category": "test"
+    "Category": [
+      "Kategori 2"
+    ]
   },
   {
     "Id": 6,
-    "Name": "Test",
+    "Name": "namn",
     "Ingredients": [
-      "test",
-      "test",
-      "test"
+      "ingre",
+      "gdksngs"
     ],
     "Instructions": [
-      "test"
+      "jngdsg",
+      "gknds"
     ],
-    "Category": "test"
+    "Category": [
+      "Kategori 3"
+    ]
+  },
+  {
+    "Id": 7,
+    "Name": "namn",
+    "Ingredients": [
+      "ingrs, ginfjrdg,"
+    ],
+    "Instructions": [
+      "intrsg,gfsgls"
+    ],
+    "Category": [
+      "kategori 4"
+    ]
+  },
+  {
+    "Id": 8,
+    "Name": "namn",
+    "Ingredients": [
+      "instrgrwe",
+      ",\u00B4"
+    ],
+    "Instructions": [
+      "gdsg"
+    ],
+    "Category": [
+      "kategori 6"
+    ]
+  },
+  {
+    "Id": 9,
+    "Name": "namn",
+    "Ingredients": [
+      "ingredinet",
+      "ikj"
+    ],
+    "Instructions": [
+      "gdfns"
+    ],
+    "Category": [
+      "Kategori 2"
+    ]
+  },
+  {
+    "Id": 10,
+    "Name": "namn",
+    "Ingredients": [
+      "fdsgs"
+    ],
+    "Instructions": [
+      "gdsjgs"
+    ],
+    "Category": [
+      "test"
+    ]
+  },
+  {
+    "Id": 11,
+    "Name": "gdsg",
+    "Ingredients": [
+      "jgds"
+    ],
+    "Instructions": [
+      "gdsgs"
+    ],
+    "Category": []
+  },
+  {
+    "Id": 12,
+    "Name": "namn",
+    "Ingredients": [
+      "gndsk"
+    ],
+    "Instructions": [
+      "gndskg"
+    ],
+    "Category": []
+  },
+  {
+    "Id": 13,
+    "Name": "namn",
+    "Ingredients": [
+      "gdskg"
+    ],
+    "Instructions": [
+      "gdsgklsd"
+    ],
+    "Category": []
   }
 ]
