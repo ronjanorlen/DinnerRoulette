@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Data.Common;
 using System.Runtime.Serialization.Formatters;
 using System.Security.Cryptography.X509Certificates;
@@ -42,7 +43,7 @@ class Program
         }
         else if (option == '5')
         {
-            RemoveRecipe();
+            RemoveRecipe(); // Ta bort recept
         }
         else if (option == 'X' || option == 'x')
         {
@@ -275,7 +276,7 @@ class Program
         Console.Clear();
         Console.WriteLine("LÄGG TILL NYTT RECEPT\n");
 
-        while (true) 
+        while (true)
         {
             Console.WriteLine("Tryck 1 för att lägga till ett nytt recept.");
             Console.WriteLine("Tryck X för att gå tillbaka till huvudmenyn.\n");
@@ -285,12 +286,12 @@ class Program
             if (addRecipe == "X")
             {
                 Console.Clear();
-                DisplayMenu(); 
-                return; 
+                DisplayMenu();
+                return;
             }
             else if (addRecipe == "1")
             {
-               Console.Clear();
+                Console.Clear();
                 break;
             }
             else
@@ -562,12 +563,12 @@ class Program
 
             string? delete = Console.ReadLine();
 
-             if (delete?.ToUpper() == "X")
-             {
-                 Console.Clear();
-                 DisplayMenu();
-                 return;
-             }
+            if (delete?.ToUpper() == "X")
+            {
+                Console.Clear();
+                DisplayMenu();
+                return;
+            }
 
             // Parsa inmatning
             if (int.TryParse(delete, out int recipeId))
@@ -602,6 +603,7 @@ class Program
 
     }
 
+
     // Spara till JSON-fil
     public static void SaveRecipes()
     {
@@ -629,6 +631,9 @@ class Program
 
     static void Main(string[] args)
     {
+        Console.ForegroundColor = ConsoleColor.Blue; // Färg på Text
+        Console.BackgroundColor = ConsoleColor.DarkGreen; // Bakgrundsfärg på text
+
         // läs in befintliga från fil
         LoadRecipes();
 
