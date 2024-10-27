@@ -1,176 +1,44 @@
 [
   {
     "Id": 1,
-    "Name": "Namn",
+    "Name": "namn",
     "Ingredients": [
-      "ingrediens",
-      "ingrediens"
+      "ingredine"
     ],
     "Instructions": [
-      "instruktion",
-      "instruktion"
+      "nisntrk"
     ],
     "Category": [
-      "Kategori 1"
+      "kategorii"
     ]
   },
   {
     "Id": 2,
-    "Name": "Namn",
+    "Name": "fdsf",
     "Ingredients": [
-      "Ingrediens",
-      "ingrediens"
+      "x"
     ],
     "Instructions": [
-      "instruktion",
-      "instruktion"
+      "fsa",
+      "pl"
     ],
     "Category": [
-      "Kategori 1"
+      "fksa"
     ]
   },
   {
     "Id": 3,
-    "Name": "Namn",
+    "Name": "c",
     "Ingredients": [
-      "ingrediens",
-      "ingrediens"
+      "f",
+      "ko"
     ],
     "Instructions": [
-      "instruktion",
-      "instruktion"
+      "dsgf",
+      "sok"
     ],
     "Category": [
-      "Kategori 1"
+      "fksa"
     ]
-  },
-  {
-    "Id": 4,
-    "Name": "namn",
-    "Ingredients": [
-      "ingreidnd, ingredn,"
-    ],
-    "Instructions": [
-      "intrusk",
-      "nstr,m,"
-    ],
-    "Category": [
-      "Kategori 1"
-    ]
-  },
-  {
-    "Id": 5,
-    "Name": "namn",
-    "Ingredients": [
-      "ingreinde"
-    ],
-    "Instructions": [
-      "instrukiiotn"
-    ],
-    "Category": [
-      "Kategori 2"
-    ]
-  },
-  {
-    "Id": 6,
-    "Name": "namn",
-    "Ingredients": [
-      "ingre",
-      "gdksngs"
-    ],
-    "Instructions": [
-      "jngdsg",
-      "gknds"
-    ],
-    "Category": [
-      "Kategori 3"
-    ]
-  },
-  {
-    "Id": 7,
-    "Name": "namn",
-    "Ingredients": [
-      "ingrs, ginfjrdg,"
-    ],
-    "Instructions": [
-      "intrsg,gfsgls"
-    ],
-    "Category": [
-      "kategori 4"
-    ]
-  },
-  {
-    "Id": 8,
-    "Name": "namn",
-    "Ingredients": [
-      "instrgrwe",
-      ",\u00B4"
-    ],
-    "Instructions": [
-      "gdsg"
-    ],
-    "Category": [
-      "kategori 6"
-    ]
-  },
-  {
-    "Id": 9,
-    "Name": "namn",
-    "Ingredients": [
-      "ingredinet",
-      "ikj"
-    ],
-    "Instructions": [
-      "gdfns"
-    ],
-    "Category": [
-      "Kategori 2"
-    ]
-  },
-  {
-    "Id": 10,
-    "Name": "namn",
-    "Ingredients": [
-      "fdsgs"
-    ],
-    "Instructions": [
-      "gdsjgs"
-    ],
-    "Category": [
-      "test"
-    ]
-  },
-  {
-    "Id": 11,
-    "Name": "gdsg",
-    "Ingredients": [
-      "jgds"
-    ],
-    "Instructions": [
-      "gdsgs"
-    ],
-    "Category": []
-  },
-  {
-    "Id": 12,
-    "Name": "namn",
-    "Ingredients": [
-      "gndsk"
-    ],
-    "Instructions": [
-      "gndskg"
-    ],
-    "Category": []
-  },
-  {
-    "Id": 13,
-    "Name": "namn",
-    "Ingredients": [
-      "gdskg"
-    ],
-    "Instructions": [
-      "gdsgklsd"
-    ],
-    "Category": []
   }
 ]

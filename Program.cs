@@ -15,7 +15,7 @@ class Program
     // Meny
     public static void DisplayMenu()
     {
-        Console.WriteLine("1 - Visa alla recept");
+        Console.WriteLine("\n1 - Visa alla recept");
         Console.WriteLine("2 - Visa alla kategorier");
         Console.WriteLine("3 - Lägg till nytt recept");
         Console.WriteLine("4 - Slumpa fram ett recept");
@@ -66,45 +66,32 @@ class Program
         if (recipeList.Count == 0)
         {
             Console.WriteLine("Det finns inga recept att hämta..\n");
-            Console.WriteLine("Tryck på B för att återgå till huvudmenyn.");
-
-
-            while (true)
-            {
-                char input = Console.ReadKey(true).KeyChar;
-                if (input == 'B' || input == 'b')
-                {
-                    Console.Clear();
-                    DisplayMenu();
-                    return;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Ogiltigt val, försök igen.");
-                }
-            }
-
+            Console.WriteLine("Tryck på valfri tangent för att återgå till huvudmenyn.\n");
+            Console.ReadKey();
+            Console.Clear();
+            DisplayMenu();
         }
 
-        Console.WriteLine("Ange ID för det recept du vill titta på eller tryck på B för återgå till huvudmenyn.\n");
-        // Annars loopa igenom listan med recept
-        foreach (var recipe in recipeList)
-        {
-            Console.WriteLine($"{recipe.Id}: {recipe.Name}");
-            Console.WriteLine("Kategori:");
-            foreach (var category in recipe.Category)
-            {
-                Console.WriteLine($"- {category}\n");
-            }
-        }
+        // Om det finns recept att visa
+        Console.WriteLine("Ange siffra för det recept du vill titta på eller tryck på X för återgå till huvudmenyn.\n");
 
-        // Loop för att välja ett recept
         while (true)
         {
+            // loopa igenom listan med recept
+            foreach (var recipe in recipeList)
+            {
+                Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
+                Console.WriteLine("Kategori:");
+                foreach (var category in recipe.Category)
+                {
+                    Console.WriteLine($"{category}\n");
+                }
+            }
+
+            // Ta input från användare
             string? input = Console.ReadLine();
 
-            if (input?.ToUpper() == "B")
+            if (input?.ToUpper() == "X")
             {
                 // Gå tillbaka till menyn
                 Console.Clear();
@@ -116,6 +103,12 @@ class Program
                 // Visa receptet som valts
                 ShowSingleRecipe(recipeId);
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Ogiltigt val, ange siffra på receptet du vill se eller tryck på X för att gå till huvudmenyn.\n");
+            }
+
         }
 
 
@@ -124,7 +117,6 @@ class Program
     // Visa valt recept
     public static void ShowSingleRecipe(int recipeId)
     {
-        Console.WriteLine("SHOW SINGLE RECIPE");
         // Hitta recept med angivet ID
         var recipe = recipeList.FirstOrDefault(r => r.Id == recipeId);
 
@@ -148,32 +140,19 @@ class Program
             {
                 Console.WriteLine($"- {category}\n");
             }
+            Console.WriteLine("\nTryck på valfri tangent för att gå till alla recept.\n");
+            Console.ReadKey();
+            ShowAllRecipes();
         }
         // Felhantering
         else
         {
             Console.Clear();
-            Console.WriteLine("Det finns inget recept med det angivna ID:et.\n");
-        }
-
-        // Gå tillbaka
-        Console.WriteLine("Tryck på B för att gå tillbaka till alla recept.");
-        while (true)
-        {
-            string? input = Console.ReadLine();
-
-            if (input?.ToUpper() == "B")
-            {
-                // Gå tillbaka till alla recept
-                Console.Clear();
-                ShowAllRecipes();
-            }
-
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Ogiltigt val, tryck på B för att återgå till alla recept.");
-            }
+            Console.WriteLine("Det finns inget recept med den angivna siffran.\n");
+            Console.WriteLine("\nTryck på valfri tangent för att återgå till alla recept.\n");
+            Console.ReadKey();
+            Console.Clear();
+            ShowAllRecipes();
         }
     }
 
@@ -192,29 +171,25 @@ class Program
         // Om det inte finns några kategorier
         if (allCategories.Count == 0)
         {
-            Console.WriteLine("Det finns inga kategorier att visa..");
-            Console.WriteLine("Tryck på B för att återgå till huvudmenyn.");
-
-            char input = Console.ReadKey(true).KeyChar;
-            if (input == 'B' || input == 'b')
-            {
-                Console.Clear();
-                DisplayMenu();
-                return;
-            }
+            Console.Clear();
+            Console.WriteLine("Det finns inga kategorier att visa..\n");
+            Console.WriteLine("\nTryck på valfri tangent för att gå till huvudmenyn.\n");
+            Console.ReadKey();
+            Console.Clear();
+            DisplayMenu();
         }
 
         while (true)
         {
-            Console.WriteLine("Ange ID för den kategori du vill se eller tryck på B för att återgå till huvudmenyn.\n");
+            Console.WriteLine("Ange siffran för den kategori du vill se eller tryck på X för att återgå till huvudmenyn.\n");
             // Loopa igenom och visa alla kategorier
             for (int i = 0; i < allCategories.Count; i++)
             {
-                Console.WriteLine($"{i + 1}: {allCategories[i]}");
+                Console.WriteLine($"{i + 1}: {allCategories[i]}\n");
             }
 
-            string? inputBack = Console.ReadLine();
-            if (inputBack?.ToUpper() == "B")
+            string? input = Console.ReadLine();
+            if (input?.ToUpper() == "X")
             {
                 Console.Clear();
                 DisplayMenu();
@@ -222,7 +197,7 @@ class Program
             }
 
             // Välj kategori
-            if (int.TryParse(inputBack, out int categoryIndex) && categoryIndex > 0 && categoryIndex <= allCategories.Count)
+            if (int.TryParse(input, out int categoryIndex) && categoryIndex > 0 && categoryIndex <= allCategories.Count)
             {
                 string selectedCategory = allCategories[categoryIndex - 1];
                 RecipesInCategory(selectedCategory);
@@ -230,7 +205,7 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Ogiltigt val, försök igen.");
+                Console.WriteLine("Ogiltigt val, försök igen.\n");
             }
         }
 
@@ -242,7 +217,7 @@ class Program
     {
         Console.Clear();
         Console.WriteLine($"Recept i kategori: {category}\n");
-        Console.WriteLine("Ange ID för det recept du vill se eller tryck på B för att gå tillbaka till alla kategorier.\n");
+        Console.WriteLine("Ange siffran för det recept du vill se eller tryck på X för att gå tillbaka till alla kategorier.\n");
 
         // Filtrera ur recept från vald kategori
         List<Recipe> fromCategory = recipeList
@@ -251,57 +226,99 @@ class Program
 
         foreach (var recipe in fromCategory)
         {
-            Console.WriteLine($"{recipe.Id}: {recipe.Name}");
+            Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
         }
 
-        string? input = Console.ReadLine();
-
-        if (input?.ToUpper() == "B")
+        while (true)
         {
-            Console.Clear();
-            ShowCategories();
-            return;
-        }
+            string? input = Console.ReadLine();
 
-        if (int.TryParse(input, out int recipeId))
-        {
+            if (input?.ToUpper() == "X")
+            {
+                Console.Clear();
+                ShowCategories();
+                return;
+            }
+
+            if (!int.TryParse(input, out int recipeId))
+            {
+                Console.WriteLine("Du måste ange en siffra.");
+                Console.WriteLine("Testa igen.\n");
+                continue;
+            }
+
             // Kontroll att receptet finns i kategorin
             if (fromCategory.Any(r => r.Id == recipeId))
             {
                 ShowSingleRecipe(recipeId);
+                break;
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Siffran du angav matchar inget recept i denna kategori. Vänligen försök igen.\n");
+                Console.WriteLine("Välj ett recept ur listan nedan.\n");
+                foreach (var recipe in fromCategory)
+                {
+                    Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
+                }
+                Console.WriteLine("Eller tryck X för att gå tillbaka till alla kategorier.\n");
+            }
+        }
 
-        }
-        else
-        {
-            Console.WriteLine("Ogiltigt val, försök igen.");
-        }
     }
+
 
     // Lägg till recept
     public static void AddNewRecipe()
     {
         Console.Clear();
+        Console.WriteLine("LÄGG TILL NYTT RECEPT\n");
+
+        while (true) 
+        {
+            Console.WriteLine("Tryck 1 för att lägga till ett nytt recept.");
+            Console.WriteLine("Tryck X för att gå tillbaka till huvudmenyn.\n");
+
+            string? addRecipe = Console.ReadLine()?.ToUpper();
+
+            if (addRecipe == "X")
+            {
+                Console.Clear();
+                DisplayMenu(); 
+                return; 
+            }
+            else if (addRecipe == "1")
+            {
+               Console.Clear();
+                break;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Ogiltigt val, försök igen.\n");
+            }
+        }
 
         Recipe newRecipe = new Recipe(); // Nytt objekt
 
         // Generera ID till recept baserat på listan
         newRecipe.Id = recipeList.Count + 1;
 
-        Console.WriteLine("LÄGG TILL NYTT RECEPT\n");
         // Kontroll för tom inmatning
         while (true)
         {
-            Console.WriteLine("Ange namn för recept:");
+            Console.WriteLine("Ange namn för recept:\n");
             newRecipe.Name = Console.ReadLine();
-            Console.Clear();
 
             if (string.IsNullOrEmpty(newRecipe.Name))
             {
-                Console.WriteLine("Du måste ange ett namn för receptet.");
+                Console.Clear();
+                Console.WriteLine("Du måste ange ett namn för receptet.\n");
             }
             else
             {
+                Console.Clear();
                 break; // Avbryt när namnet är ifyllt
             }
         }
@@ -309,7 +326,7 @@ class Program
         while (true)
         {
             Console.WriteLine("Ange ingredienser:");
-            Console.WriteLine("Separera ingrediens med kommatecken eller tryck enter.");
+            Console.WriteLine("Tryck enter mellan varje ingrediens.\n");
             Console.WriteLine("Skriv ok när du är klar.\n");
             List<string> ingredients = new List<string>();
             string? input;
@@ -331,6 +348,7 @@ class Program
             }
             else
             {
+                Console.Clear();
                 break; // Avbryt när ingredienser är ifyllt
             }
         }
@@ -338,8 +356,8 @@ class Program
         while (true)
         {
             Console.WriteLine("Ange instruktioner:");
-            Console.WriteLine("Separera instruktionerna med kommatecken eller tryck enter.\n");
-            Console.WriteLine("Skriv ok när du är klar.");
+            Console.WriteLine("Tryck enter mellan varje instruktion.\n");
+            Console.WriteLine("Skriv ok när du är klar.\n");
             List<string> instructions = new List<string>();
             string? input;
 
@@ -360,6 +378,7 @@ class Program
             }
             else
             {
+                Console.Clear();
                 break; // Avbryt när ingredienser är ifyllt
             }
         }
@@ -388,26 +407,25 @@ class Program
             string? catInput = Console.ReadLine()?.ToUpper();
             if (catInput == "N")
             {
-                Console.Clear();
-                Console.WriteLine("Ange namn för den nya kategorin.\n");
-                string? newCategory = Console.ReadLine();
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Ange namn för den nya kategorin.\n");
+                    string? newCategory = Console.ReadLine();
 
-                if (!string.IsNullOrEmpty(newCategory))
-                {
-                    newRecipe.Category = new[] { newCategory }; // Lägg till ny kategori
-                    break; // Avbryt
+                    if (!string.IsNullOrEmpty(newCategory))
+                    {
+                        newRecipe.Category = new[] { newCategory }; // Lägg till ny kategori
+                        break; // Avbryt
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Den nya kategorin får inte vara tom.\n");
-                }
+                break;
             }
 
 
 
             else if (catInput == "A" && allCategories.Count > 0)
             {
-
                 // Visa befintliga kategorier    
                 while (true)
                 {
@@ -423,75 +441,57 @@ class Program
                         newRecipe.Category = new[] { allCategories[index - 1] }; // Lägg till vald kategori till receptet
                         break; // Avbryt
                     }
-                    else
-                    {
-                        Console.WriteLine("Det angivna ID:et finns inte, testa igen.\n");
-                    }
                 }
                 break;
 
             }
             else
             {
-                Console.WriteLine("Ogiltigt val, försök igen. Välj N för ny kategori eller A för att lägga till i en befintlig.\n");
+                Console.Clear();
+                Console.WriteLine("Ogiltigt val, försök igen. \nVälj N för ny kategori eller A för att lägga till i en befintlig.\n");
             }
-            }
+        }
 
+        // Lägg till recept i lista
+        recipeList.Add(newRecipe);
 
+        // Spara listan i JSON-fil
+        SaveRecipes();
 
-            // Lägg till recept i lista
-            recipeList.Add(newRecipe);
+        // återgå till menyn
+        Console.Clear();
+        Console.WriteLine("Recept tillagt!\n");
+        Console.WriteLine("\nTryck på valfri tangent för att återgå till huvudmenyn.\n");
+        Console.ReadKey();
+        Console.Clear();
+        DisplayMenu();
 
-            // Spara listan i JSON-fil
-            SaveRecipes();
-
-            // återgå till menyn
-            Console.Clear();
-            Console.WriteLine("Recept tillagt!\n");
-            Console.WriteLine("\nTryck på B för att återgå till huvudmenyn.");
-
-            while (true)
-            {
-                string? input = Console.ReadLine();
-                if (input?.ToUpper() == "B")
-                {
-                    Console.Clear();
-                    DisplayMenu();
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("Ogiltigt val, försök igen.");
-                }
-            }
-        
     }
 
     // Slumpa fram recept
     public static void RandomRecipe()
     {
         Console.Clear();
-        Console.WriteLine("SLUMPA FRAM RECEPT");
+        Console.WriteLine("SLUMPAR FRAM RECEPT\n");
+
+        // Simulera att ett recept letas fram
+        for (int i = 3; i > 0; i--)
+        {
+            Console.WriteLine($"{i} ");
+            Thread.Sleep(1000);
+        }
+
+        Console.Clear();
+        Console.WriteLine("\n");
+
         // Om det inte finns några recept att hämta
         if (recipeList.Count == 0)
         {
-            Console.WriteLine("Det finns inga recept att slumpa fram.. \n");
-            Console.WriteLine("Tryck på B för att återgå till huvudmenyn.");
-
-            while (true)
-            {
-                char input = Console.ReadKey(true).KeyChar;
-                if (input == 'B' || input == 'b')
-                {
-                    Console.Clear();
-                    DisplayMenu();
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("Ogiltigt val, försök igen.");
-                }
-            }
+            Console.WriteLine("Kokboken är tom.. \n");
+            Console.WriteLine("\nTryck på valfri tangent för att återgå till huvudmenyn.\n");
+            Console.ReadKey();
+            Console.Clear();
+            DisplayMenu();
         }
 
         // Om det finns recept att hämta
@@ -520,11 +520,11 @@ class Program
         }
 
         // Återgå till huvudmenyn
-        Console.WriteLine("\nTryck på B för att återgå till huvudmenyn.");
+        Console.WriteLine("\nTryck på X för att återgå till huvudmenyn.\n");
         while (true)
         {
             string? input = Console.ReadLine();
-            if (input?.ToUpper() == "B")
+            if (input?.ToUpper() == "X")
             {
                 Console.Clear();
                 DisplayMenu();
@@ -538,7 +538,8 @@ class Program
     public static void RemoveRecipe()
     {
         Console.Clear();
-        Console.WriteLine("TA BORT RECEPT");
+        Console.WriteLine("TA BORT RECEPT\n");
+        Console.WriteLine("Ange ID för det recept du vill ta bort eller tryck X för att återgå till huvudmenyn.\n");
 
         // Visa alla recept
         foreach (var recipe in recipeList)
@@ -546,21 +547,30 @@ class Program
             Console.WriteLine($"{recipe.Id}: {recipe.Name}");
         }
 
+        // Om det inte finns några recept att visa
+        if (recipeList.Count == 0)
+        {
+            Console.Clear();
+            Console.WriteLine("Det finns inga recept att visa, tryck på valfri tangent för att återgå till huvudmenyn.\n");
+            Console.ReadKey();
+            Console.Clear();
+            DisplayMenu();
+        }
+
         while (true)
         {
-            Console.WriteLine("Ange ID för det recept du vill ta bort eller tryck B för att återgå till huvudmenyn.");
 
-            string? input = Console.ReadLine();
+            string? delete = Console.ReadLine();
 
-            if (input?.ToUpper() == "B")
-            {
-                Console.Clear();
-                DisplayMenu();
-                return;
-            }
+             if (delete?.ToUpper() == "X")
+             {
+                 Console.Clear();
+                 DisplayMenu();
+                 return;
+             }
 
             // Parsa inmatning
-            if (int.TryParse(input, out int recipeId))
+            if (int.TryParse(delete, out int recipeId))
             {
                 // Hitta inmatat ID
                 var recipeToRemove = recipeList.FirstOrDefault(r => r.Id == recipeId);
@@ -569,21 +579,26 @@ class Program
                 {
                     recipeList.Remove(recipeToRemove);
                     SaveRecipes();
-                    Console.WriteLine($"Receptet har tagits bort.");
-                    break;
+                    Console.Clear();
+                    Console.WriteLine("Receptet har tagits bort.\n");
+                    Console.WriteLine("Tryck på valfri tangent för att återgå till huvudmenyn.\n");
+                    Console.ReadKey();
+                    Console.Clear();
+                    DisplayMenu();
+                    return;
                 }
+                // Om användare anger felaktigt ID
                 else
                 {
-                    Console.WriteLine("Ogiltigt ID, försök igen.");
+                    Console.WriteLine("ID:et hittades inte, försök igen.\n");
                 }
             }
+            // Om användaren skriver bokstäver ist för siffra
+            else
+            {
+                Console.WriteLine("Ogiltig inmatning, försök igen.\n");
+            }
         }
-        // Visa alla recept
-        // foreach (var recipe in recipeList)
-        // {
-        //     Console.WriteLine($"{recipe.Id}: {recipe.Name}");
-        // }
-
 
     }
 
