@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Data.Common;
-using System.Runtime.Serialization.Formatters;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Immutable;
 using System.Text.Json;
 using Recipes; // Importerar recipe-klass från recipes.cs
+using ConsoleStyling; // Importerar styling-klass från ConsoleStyling.cs
 
 class Program
 {
@@ -16,12 +13,16 @@ class Program
     // Meny
     public static void DisplayMenu()
     {
-        Console.WriteLine("\n1 - Visa alla recept");
-        Console.WriteLine("2 - Visa alla kategorier");
-        Console.WriteLine("3 - Lägg till nytt recept");
-        Console.WriteLine("4 - Slumpa fram ett recept");
-        Console.WriteLine("5 - Ta bort ett recept\n");
-        Console.WriteLine("X - Avsluta\n");
+        ConsoleStyle.PrintColor("\nVälkommen till kokboken!", ConsoleColor.DarkBlue);
+
+        ConsoleStyle.PrintColor("\n1 - Visa alla recept", ConsoleColor.Yellow);
+        ConsoleStyle.PrintColor("2 - Visa alla kategorier", ConsoleColor.Yellow);
+        ConsoleStyle.PrintColor("3 - Lägg till nytt recept", ConsoleColor.Yellow);
+        ConsoleStyle.PrintColor("4 - Slumpa fram ett recept\n", ConsoleColor.Yellow);
+
+        ConsoleStyle.PrintColor("5 - Ta bort ett recept\n", ConsoleColor.Red);
+
+        ConsoleStyle.PrintColor("X - Stäng kokboken\n", ConsoleColor.DarkGray);
 
         char option = Console.ReadKey(true).KeyChar;
 
@@ -52,7 +53,7 @@ class Program
         else
         {
             Console.Clear();
-            Console.WriteLine("Ogiltigt val, vänligen försök igen.\n");
+            ConsoleStyle.PrintColor("Ogiltigt val, vänligen försök igen.\n", ConsoleColor.DarkRed);
             DisplayMenu();
         }
     }
@@ -61,31 +62,31 @@ class Program
     public static void ShowAllRecipes()
     {
         Console.Clear();
-        Console.WriteLine("ALLA RECEPT\n");
+        ConsoleStyle.PrintColor("ALLA RECEPT\n", ConsoleColor.Yellow);
 
         // Om det inte finns några recept, be användaren återvända till huvudmeyn
         if (recipeList.Count == 0)
         {
-            Console.WriteLine("Det finns inga recept att hämta..\n");
-            Console.WriteLine("Tryck på valfri tangent för att återgå till huvudmenyn.\n");
+            ConsoleStyle.PrintColor("Det finns inga recept att hämta..\nTryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkYellow);
             Console.ReadKey();
             Console.Clear();
             DisplayMenu();
         }
 
         // Om det finns recept att visa
-        Console.WriteLine("Ange siffra för det recept du vill titta på eller tryck på X för återgå till huvudmenyn.\n");
+        ConsoleStyle.PrintColor("Ange siffra för det recept du vill titta på. \n", ConsoleColor.DarkYellow);
+        ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till huvudmenyn.\n", ConsoleColor.DarkGray);
 
         while (true)
         {
             // loopa igenom listan med recept
             foreach (var recipe in recipeList)
             {
-                Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
-                Console.WriteLine("Kategori:");
+                ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
+                ConsoleStyle.PrintColor("Kategori:", ConsoleColor.Yellow);
                 foreach (var category in recipe.Category)
                 {
-                    Console.WriteLine($"{category}\n");
+                    ConsoleStyle.PrintColor($"{category}\n", ConsoleColor.Yellow);
                 }
             }
 
@@ -107,7 +108,8 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Ogiltigt val, ange siffra på receptet du vill se eller tryck på X för att gå till huvudmenyn.\n");
+                ConsoleStyle.PrintColor("Ogiltigt val, ange siffra på receptet du vill se. \n", ConsoleColor.DarkRed);
+                ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till huvudmenyn.\n", ConsoleColor.DarkGray);
             }
 
         }
@@ -125,23 +127,23 @@ class Program
         if (recipe != null)
         {
             Console.Clear();
-            Console.WriteLine($"{recipe.Name}\n");
-            Console.WriteLine($"Ingredienser:\n");
+            ConsoleStyle.PrintColor($"{recipe.Name}\n", ConsoleColor.Yellow);
+            ConsoleStyle.PrintColor($"Ingredienser:\n", ConsoleColor.Yellow);
             foreach (var ingredient in recipe.Ingredients)
             {
-                Console.WriteLine($"- {ingredient}");
+                ConsoleStyle.PrintColor($"- {ingredient}", ConsoleColor.DarkYellow);
             }
-            Console.WriteLine($"\nInstruktioner:\n");
+            ConsoleStyle.PrintColor($"\nInstruktioner:\n", ConsoleColor.Yellow);
             for (int i = 0; i < recipe.Instructions.Length; i++)
             {
-                Console.WriteLine($"{i + 1}. {recipe.Instructions[i]}");
+                ConsoleStyle.PrintColor($"{i + 1}. {recipe.Instructions[i]}", ConsoleColor.DarkYellow);
             }
-            Console.WriteLine($"\nKategori:\n");
+            ConsoleStyle.PrintColor($"\nKategori:\n", ConsoleColor.Yellow);
             foreach (var category in recipe.Category)
             {
-                Console.WriteLine($"- {category}\n");
+                ConsoleStyle.PrintColor($"- {category}\n", ConsoleColor.DarkYellow);
             }
-            Console.WriteLine("\nTryck på valfri tangent för att gå till alla recept.\n");
+            ConsoleStyle.PrintColor("\nTryck på valfri tangent för att gå till alla recept.\n", ConsoleColor.DarkGray);
             Console.ReadKey();
             ShowAllRecipes();
         }
@@ -149,8 +151,8 @@ class Program
         else
         {
             Console.Clear();
-            Console.WriteLine("Det finns inget recept med den angivna siffran.\n");
-            Console.WriteLine("\nTryck på valfri tangent för att återgå till alla recept.\n");
+            ConsoleStyle.PrintColor("Det finns inget recept med den angivna siffran.\n", ConsoleColor.DarkRed);
+            ConsoleStyle.PrintColor("\nTryck på valfri tangent för att återgå till alla recept.\n", ConsoleColor.DarkGray);
             Console.ReadKey();
             Console.Clear();
             ShowAllRecipes();
@@ -161,7 +163,7 @@ class Program
     public static void ShowCategories()
     {
         Console.Clear();
-        Console.WriteLine("Alla kategorier\n");
+        ConsoleStyle.PrintColor("Alla kategorier\n", ConsoleColor.Yellow);
 
         // Hämta kategorier
         List<string> allCategories = recipeList
@@ -172,9 +174,9 @@ class Program
         // Om det inte finns några kategorier
         if (allCategories.Count == 0)
         {
-            Console.Clear();
-            Console.WriteLine("Det finns inga kategorier att visa..\n");
-            Console.WriteLine("\nTryck på valfri tangent för att gå till huvudmenyn.\n");
+            // Console.Clear();
+            ConsoleStyle.PrintColor("Det finns inga kategorier att visa..\n", ConsoleColor.DarkRed);
+            ConsoleStyle.PrintColor("\nTryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
             Console.ReadKey();
             Console.Clear();
             DisplayMenu();
@@ -182,11 +184,14 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("Ange siffran för den kategori du vill se eller tryck på X för att återgå till huvudmenyn.\n");
+
+            ConsoleStyle.PrintColor("\nAnge siffran för den kategori du vill se. \n", ConsoleColor.DarkYellow);
+            ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
+
             // Loopa igenom och visa alla kategorier
             for (int i = 0; i < allCategories.Count; i++)
             {
-                Console.WriteLine($"{i + 1}: {allCategories[i]}\n");
+                ConsoleStyle.PrintColor($"{i + 1}: {allCategories[i]}\n", ConsoleColor.Yellow);
             }
 
             string? input = Console.ReadLine();
@@ -206,7 +211,7 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Ogiltigt val, försök igen.\n");
+                ConsoleStyle.PrintColor("Ogiltigt val, försök igen.\n", ConsoleColor.DarkRed);
             }
         }
 
@@ -217,8 +222,8 @@ class Program
     public static void RecipesInCategory(string category)
     {
         Console.Clear();
-        Console.WriteLine($"Recept i kategori: {category}\n");
-        Console.WriteLine("Ange siffran för det recept du vill se eller tryck på X för att gå tillbaka till alla kategorier.\n");
+        ConsoleStyle.PrintColor("\nAnge siffran för det recept du vill se. \n", ConsoleColor.DarkYellow);
+        ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
 
         // Filtrera ur recept från vald kategori
         List<Recipe> fromCategory = recipeList
@@ -227,7 +232,7 @@ class Program
 
         foreach (var recipe in fromCategory)
         {
-            Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
+            ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
         }
 
         while (true)
@@ -243,8 +248,8 @@ class Program
 
             if (!int.TryParse(input, out int recipeId))
             {
-                Console.WriteLine("Du måste ange en siffra.");
-                Console.WriteLine("Testa igen.\n");
+                ConsoleStyle.PrintColor("Du måste ange en siffra.", ConsoleColor.DarkRed);
+                ConsoleStyle.PrintColor("Testa igen.\n", ConsoleColor.DarkGray);
                 continue;
             }
 
@@ -257,13 +262,13 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Siffran du angav matchar inget recept i denna kategori. Vänligen försök igen.\n");
-                Console.WriteLine("Välj ett recept ur listan nedan.\n");
+                ConsoleStyle.PrintColor("Siffran du angav matchar inget recept i denna kategori. Vänligen försök igen.\n", ConsoleColor.DarkRed);
+                ConsoleStyle.PrintColor("Välj ett recept ur listan nedan.\n", ConsoleColor.DarkYellow);
                 foreach (var recipe in fromCategory)
                 {
-                    Console.WriteLine($"{recipe.Id}: {recipe.Name}\n");
+                    ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
                 }
-                Console.WriteLine("Eller tryck X för att gå tillbaka till alla kategorier.\n");
+                ConsoleStyle.PrintColor("Eller tryck X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
             }
         }
 
@@ -274,12 +279,12 @@ class Program
     public static void AddNewRecipe()
     {
         Console.Clear();
-        Console.WriteLine("LÄGG TILL NYTT RECEPT\n");
+        ConsoleStyle.PrintColor("LÄGG TILL NYTT RECEPT\n", ConsoleColor.Yellow);
 
         while (true)
         {
-            Console.WriteLine("Tryck 1 för att lägga till ett nytt recept.");
-            Console.WriteLine("Tryck X för att gå tillbaka till huvudmenyn.\n");
+            ConsoleStyle.PrintColor("Tryck 1 för att lägga till ett nytt recept.", ConsoleColor.DarkYellow);
+            ConsoleStyle.PrintColor("Tryck X för att gå tillbaka till huvudmenyn.\n", ConsoleColor.DarkGray);
 
             string? addRecipe = Console.ReadLine()?.ToUpper();
 
@@ -297,7 +302,7 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Ogiltigt val, försök igen.\n");
+                ConsoleStyle.PrintColor("Ogiltigt val, försök igen.\n", ConsoleColor.DarkRed);
             }
         }
 
@@ -309,13 +314,13 @@ class Program
         // Kontroll för tom inmatning
         while (true)
         {
-            Console.WriteLine("Ange namn för recept:\n");
+            ConsoleStyle.PrintColor("Ange namn för recept:\n", ConsoleColor.Yellow);
             newRecipe.Name = Console.ReadLine();
 
             if (string.IsNullOrEmpty(newRecipe.Name))
             {
                 Console.Clear();
-                Console.WriteLine("Du måste ange ett namn för receptet.\n");
+                ConsoleStyle.PrintColor("Du måste ange ett namn för receptet.\n", ConsoleColor.DarkRed);
             }
             else
             {
@@ -326,9 +331,9 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("Ange ingredienser:");
-            Console.WriteLine("Tryck enter mellan varje ingrediens.\n");
-            Console.WriteLine("Skriv ok när du är klar.\n");
+            ConsoleStyle.PrintColor("Ange ingredienser:\n", ConsoleColor.Yellow);
+            ConsoleStyle.PrintColor("Tryck enter mellan varje ingrediens.", ConsoleColor.DarkYellow);
+            ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
             List<string> ingredients = new List<string>();
             string? input;
 
@@ -345,7 +350,7 @@ class Program
             if (ingredients.Count == 0)
             {
                 Console.Clear();
-                Console.WriteLine("Lägg till minst 1 ingrediens.\n");
+                ConsoleStyle.PrintColor("Lägg till minst 1 ingrediens.\n", ConsoleColor.DarkRed);
             }
             else
             {
@@ -356,9 +361,9 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("Ange instruktioner:");
-            Console.WriteLine("Tryck enter mellan varje instruktion.\n");
-            Console.WriteLine("Skriv ok när du är klar.\n");
+            ConsoleStyle.PrintColor("Ange instruktioner:\n", ConsoleColor.Yellow);
+            ConsoleStyle.PrintColor("Tryck enter mellan varje instruktion.", ConsoleColor.DarkYellow);
+            ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
             List<string> instructions = new List<string>();
             string? input;
 
@@ -375,7 +380,7 @@ class Program
             if (instructions.Count == 0)
             {
                 Console.Clear();
-                Console.WriteLine("Lägg till minst 1 instruktion.\n");
+                ConsoleStyle.PrintColor("Lägg till minst 1 instruktion.\n", ConsoleColor.DarkRed);
             }
             else
             {
@@ -391,14 +396,23 @@ class Program
         .Distinct()
         .ToList();
 
-        Console.WriteLine("Lägg receptet i en kategori.\n");
-        Console.WriteLine("För att skapa ny kategori: Tryck N\n");
-        Console.WriteLine("För att lägga till i befintlig kategori: Tryck A\n");
-        Console.WriteLine("Kategorier som redan finns:");
-        for (int i = 0; i < allCategories.Count; i++)
+        ConsoleStyle.PrintColor("Lägg receptet i en kategori.\n", ConsoleColor.Yellow);
+        ConsoleStyle.PrintColor("För att skapa ny kategori: Tryck N\n", ConsoleColor.DarkYellow);
+        ConsoleStyle.PrintColor("För att lägga till i befintlig kategori: Tryck A\n", ConsoleColor.DarkYellow);
+
+        if (allCategories.Count == 0)
         {
-            Console.WriteLine($"{allCategories[i]}");
+            ConsoleStyle.PrintColor("Det finns inga kategorier ännu..", ConsoleColor.DarkGray);
         }
+        else
+        {
+            ConsoleStyle.PrintColor("Kategorier som redan finns:", ConsoleColor.Yellow);
+            for (int i = 0; i < allCategories.Count; i++)
+            {
+                ConsoleStyle.PrintColor($"{allCategories[i]}", ConsoleColor.DarkYellow);
+            }
+        }
+
 
 
 
@@ -411,7 +425,7 @@ class Program
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine("Ange namn för den nya kategorin.\n");
+                    ConsoleStyle.PrintColor("Ange namn för den nya kategorin.\n", ConsoleColor.Yellow);
                     string? newCategory = Console.ReadLine();
 
                     if (!string.IsNullOrEmpty(newCategory))
@@ -431,10 +445,10 @@ class Program
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine("Ange ID för den kategori receptet ska läggas till i:\n");
+                    ConsoleStyle.PrintColor("Ange ID för den kategori receptet ska läggas till i:\n", ConsoleColor.Yellow);
                     for (int i = 0; i < allCategories.Count; i++)
                     {
-                        Console.WriteLine($"{i + 1}: {allCategories[i]}");
+                        ConsoleStyle.PrintColor($"{i + 1}: {allCategories[i]}", ConsoleColor.Yellow);
                     }
                     // Kontroll för korrekt ID
                     if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= allCategories.Count)
@@ -449,7 +463,8 @@ class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine("Ogiltigt val, försök igen. \nVälj N för ny kategori eller A för att lägga till i en befintlig.\n");
+                ConsoleStyle.PrintColor("Ogiltigt val, försök igen. \n", ConsoleColor.DarkRed);
+                ConsoleStyle.PrintColor("Välj N för ny kategori eller A för att lägga till i en befintlig.\n", ConsoleColor.DarkGray);
             }
         }
 
@@ -461,8 +476,8 @@ class Program
 
         // återgå till menyn
         Console.Clear();
-        Console.WriteLine("Recept tillagt!\n");
-        Console.WriteLine("\nTryck på valfri tangent för att återgå till huvudmenyn.\n");
+        ConsoleStyle.PrintColor("Recept tillagt!\n", ConsoleColor.DarkGreen);
+        ConsoleStyle.PrintColor("Tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
         Console.ReadKey();
         Console.Clear();
         DisplayMenu();
@@ -473,12 +488,12 @@ class Program
     public static void RandomRecipe()
     {
         Console.Clear();
-        Console.WriteLine("SLUMPAR FRAM RECEPT\n");
+        ConsoleStyle.PrintColor("SLUMPAR FRAM RECEPT\n", ConsoleColor.DarkYellow);
 
         // Simulera att ett recept letas fram
         for (int i = 3; i > 0; i--)
         {
-            Console.WriteLine($"{i} ");
+            ConsoleStyle.PrintColor($"{i} ", ConsoleColor.DarkYellow);
             Thread.Sleep(1000);
         }
 
@@ -488,8 +503,8 @@ class Program
         // Om det inte finns några recept att hämta
         if (recipeList.Count == 0)
         {
-            Console.WriteLine("Kokboken är tom.. \n");
-            Console.WriteLine("\nTryck på valfri tangent för att återgå till huvudmenyn.\n");
+            ConsoleStyle.PrintColor("Kokboken är tom.. \n", ConsoleColor.DarkYellow);
+            ConsoleStyle.PrintColor("Tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
             Console.ReadKey();
             Console.Clear();
             DisplayMenu();
@@ -501,27 +516,27 @@ class Program
         Recipe randomRecipe = recipeList[randomIndex];
 
         // Visa slumpat recept
-        Console.WriteLine($"Recept: {randomRecipe.Name}\n");
-        Console.WriteLine("Ingredienser:\n");
+        ConsoleStyle.PrintColor($"Recept: {randomRecipe.Name}\n", ConsoleColor.Yellow);
+        ConsoleStyle.PrintColor("Ingredienser:\n", ConsoleColor.Yellow);
         foreach (var ingredient in randomRecipe.Ingredients)
         {
-            Console.WriteLine($"- {ingredient}");
+            ConsoleStyle.PrintColor($"- {ingredient}", ConsoleColor.DarkYellow);
         }
 
-        Console.WriteLine("\nInstruktioner:\n");
+        ConsoleStyle.PrintColor("\nInstruktioner:\n", ConsoleColor.Yellow);
         for (int i = 0; i < randomRecipe.Instructions.Length; i++)
         {
-            Console.WriteLine($"{i + 1}. {randomRecipe.Instructions[i]}");
+            ConsoleStyle.PrintColor($"{i + 1}. {randomRecipe.Instructions[i]}", ConsoleColor.DarkYellow);
         }
 
         Console.WriteLine("\nKategori:\n");
         foreach (var category in randomRecipe.Category)
         {
-            Console.WriteLine($"- {category}");
+            ConsoleStyle.PrintColor($"- {category}", ConsoleColor.DarkYellow);
         }
 
         // Återgå till huvudmenyn
-        Console.WriteLine("\nTryck på X för att återgå till huvudmenyn.\n");
+        ConsoleStyle.PrintColor("\nTryck på X för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
         while (true)
         {
             string? input = Console.ReadLine();
@@ -539,20 +554,21 @@ class Program
     public static void RemoveRecipe()
     {
         Console.Clear();
-        Console.WriteLine("TA BORT RECEPT\n");
-        Console.WriteLine("Ange ID för det recept du vill ta bort eller tryck X för att återgå till huvudmenyn.\n");
+        ConsoleStyle.PrintColor("TA BORT RECEPT\n", ConsoleColor.Red);
+        ConsoleStyle.PrintColor("Ange ID för det recept du vill ta bort.\n", ConsoleColor.DarkYellow);
+        ConsoleStyle.PrintColor("Tryck på X för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
 
         // Visa alla recept
         foreach (var recipe in recipeList)
         {
-            Console.WriteLine($"{recipe.Id}: {recipe.Name}");
+            ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}", ConsoleColor.Yellow);
         }
 
         // Om det inte finns några recept att visa
         if (recipeList.Count == 0)
         {
             Console.Clear();
-            Console.WriteLine("Det finns inga recept att visa, tryck på valfri tangent för att återgå till huvudmenyn.\n");
+            ConsoleStyle.PrintColor("Det finns inga recept att visa, tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkYellow);
             Console.ReadKey();
             Console.Clear();
             DisplayMenu();
@@ -581,8 +597,8 @@ class Program
                     recipeList.Remove(recipeToRemove);
                     SaveRecipes();
                     Console.Clear();
-                    Console.WriteLine("Receptet har tagits bort.\n");
-                    Console.WriteLine("Tryck på valfri tangent för att återgå till huvudmenyn.\n");
+                    ConsoleStyle.PrintColor("Receptet har tagits bort.\n", ConsoleColor.DarkYellow);
+                    ConsoleStyle.PrintColor("Tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
                     Console.ReadKey();
                     Console.Clear();
                     DisplayMenu();
@@ -591,13 +607,13 @@ class Program
                 // Om användare anger felaktigt ID
                 else
                 {
-                    Console.WriteLine("ID:et hittades inte, försök igen.\n");
+                    ConsoleStyle.PrintColor("ID:et hittades inte, försök igen.\n", ConsoleColor.DarkRed);
                 }
             }
             // Om användaren skriver bokstäver ist för siffra
             else
             {
-                Console.WriteLine("Ogiltig inmatning, försök igen.\n");
+                ConsoleStyle.PrintColor("Ogiltig inmatning, försök igen.\n", ConsoleColor.DarkRed);
             }
         }
 
@@ -625,14 +641,12 @@ class Program
     public static void Quit()
     {
         Console.Clear();
-        Console.WriteLine("Hejdå! :) ");
+        ConsoleStyle.PrintBold("\nHAPPY COOKING :) \n");
         Environment.Exit(0); // Avsluta programmet
     }
 
     static void Main(string[] args)
     {
-        Console.ForegroundColor = ConsoleColor.Blue; // Färg på Text
-        Console.BackgroundColor = ConsoleColor.DarkGreen; // Bakgrundsfärg på text
 
         // läs in befintliga från fil
         LoadRecipes();
