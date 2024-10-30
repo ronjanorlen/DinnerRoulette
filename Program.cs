@@ -167,9 +167,9 @@ class Program
 
         // Hämta kategorier
         List<string> allCategories = recipeList
-            .SelectMany(r => r.Category)
-            .Distinct()
-            .ToList();
+            .SelectMany(r => r.Category) // Ta alla kategorier från recepten
+            .Distinct() // Ta bort ev. dubletter
+            .ToList(); // Lägg katgorierna i en lista
 
         // Om det inte finns några kategorier
         if (allCategories.Count == 0)
@@ -203,8 +203,10 @@ class Program
             }
 
             // Välj kategori
+            // Parsa inmatning från användare och kontrollera att värdet finns i listan
             if (int.TryParse(input, out int categoryIndex) && categoryIndex > 0 && categoryIndex <= allCategories.Count)
             {
+                // Hämta recept ur vald kategori
                 string selectedCategory = allCategories[categoryIndex - 1];
                 RecipesInCategory(selectedCategory);
             }
@@ -227,10 +229,10 @@ class Program
 
         // Filtrera ur recept från vald kategori
         List<Recipe> fromCategory = recipeList
-        .Where(r => r.Category.Contains(category))
-        .ToList();
+        .Where(r => r.Category.Contains(category)) // Hämta recept i vald kategori
+        .ToList(); // Lägg i lista
 
-        foreach (var recipe in fromCategory)
+        foreach (var recipe in fromCategory) // Loopa igenom och skriv ut recepten
         {
             ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
         }
@@ -246,7 +248,7 @@ class Program
                 return;
             }
 
-            if (!int.TryParse(input, out int recipeId))
+            if (!int.TryParse(input, out int recipeId)) // Om input inte är en siffra
             {
                 ConsoleStyle.PrintColor("Du måste ange en siffra.", ConsoleColor.DarkRed);
                 ConsoleStyle.PrintColor("Testa igen.\n", ConsoleColor.DarkGray);
@@ -334,10 +336,10 @@ class Program
             ConsoleStyle.PrintColor("Ange ingredienser:\n", ConsoleColor.Yellow);
             ConsoleStyle.PrintColor("Tryck enter mellan varje ingrediens.", ConsoleColor.DarkYellow);
             ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
-            List<string> ingredients = new List<string>();
+            List<string> ingredients = new List<string>(); // Skapa lista med ingredienser
             string? input;
 
-            while ((input = Console.ReadLine())?.ToLower() != "ok")
+            while ((input = Console.ReadLine())?.ToLower() != "ok") // Så länge input inte "ok" lägg till ingredienser i listan
             {
                 if (!string.IsNullOrEmpty(input))
                 {
@@ -347,7 +349,7 @@ class Program
             newRecipe.Ingredients = ingredients.ToArray();
             Console.Clear();
 
-            if (ingredients.Count == 0)
+            if (ingredients.Count == 0) // Om ingen ingrediens läggs till
             {
                 Console.Clear();
                 ConsoleStyle.PrintColor("Lägg till minst 1 ingrediens.\n", ConsoleColor.DarkRed);
@@ -364,10 +366,10 @@ class Program
             ConsoleStyle.PrintColor("Ange instruktioner:\n", ConsoleColor.Yellow);
             ConsoleStyle.PrintColor("Tryck enter mellan varje instruktion.", ConsoleColor.DarkYellow);
             ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
-            List<string> instructions = new List<string>();
+            List<string> instructions = new List<string>(); // Skapa lista med instruktioner
             string? input;
 
-            while ((input = Console.ReadLine())?.ToLower() != "ok")
+            while ((input = Console.ReadLine())?.ToLower() != "ok") // Så länge input inte är "ok" lägg till instruktion
             {
                 if (!string.IsNullOrEmpty(input))
                 {
@@ -377,7 +379,7 @@ class Program
             newRecipe.Instructions = instructions.ToArray();
             Console.Clear();
 
-            if (instructions.Count == 0)
+            if (instructions.Count == 0) // Om ingen instruktion läggs till
             {
                 Console.Clear();
                 ConsoleStyle.PrintColor("Lägg till minst 1 instruktion.\n", ConsoleColor.DarkRed);
@@ -392,19 +394,19 @@ class Program
 
         // Hantera kategorier
         List<string> allCategories = recipeList
-        .SelectMany(r => r.Category)
-        .Distinct()
-        .ToList();
+        .SelectMany(r => r.Category) // Hämta kategorierna
+        .Distinct() // Sortera ut ev dubletter
+        .ToList(); // Lägg i lista
 
         ConsoleStyle.PrintColor("Lägg receptet i en kategori.\n", ConsoleColor.Yellow);
         ConsoleStyle.PrintColor("För att skapa ny kategori: Tryck N\n", ConsoleColor.DarkYellow);
         ConsoleStyle.PrintColor("För att lägga till i befintlig kategori: Tryck A\n", ConsoleColor.DarkYellow);
 
-        if (allCategories.Count == 0)
+        if (allCategories.Count == 0) // Om det inte finns några kategorier ännu
         {
             ConsoleStyle.PrintColor("Det finns inga kategorier ännu..", ConsoleColor.DarkGray);
         }
-        else
+        else // Om det finns befintliga kategorier
         {
             ConsoleStyle.PrintColor("Kategorier som redan finns:", ConsoleColor.Yellow);
             for (int i = 0; i < allCategories.Count; i++)
@@ -453,7 +455,7 @@ class Program
                     // Kontroll för korrekt ID
                     if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= allCategories.Count)
                     {
-                        newRecipe.Category = new[] { allCategories[index - 1] }; // Lägg till vald kategori till receptet
+                        newRecipe.Category = new[] { allCategories[index - 1] }; // Lägg till receptet i vald kategori
                         break; // Avbryt
                     }
                 }
@@ -490,11 +492,11 @@ class Program
         Console.Clear();
         ConsoleStyle.PrintColor("SLUMPAR FRAM RECEPT\n", ConsoleColor.DarkYellow);
 
-        // Simulera att ett recept letas fram
+        // Simulera att ett recept letas fram i form av nedräkning
         for (int i = 3; i > 0; i--)
         {
-            ConsoleStyle.PrintColor($"{i} ", ConsoleColor.DarkYellow);
-            Thread.Sleep(1000);
+            ConsoleStyle.PrintColor($"{i} ", ConsoleColor.DarkYellow); // Skriv ut 3 2 1
+            Thread.Sleep(1000); // Använder thread.sleep för fördrökning av siffrorna
         }
 
         Console.Clear();
@@ -511,9 +513,9 @@ class Program
         }
 
         // Om det finns recept att hämta
-        Random random = new Random();
-        int randomIndex = random.Next(recipeList.Count);
-        Recipe randomRecipe = recipeList[randomIndex];
+        Random random = new Random(); // Nytt random-objekt
+        int randomIndex = random.Next(recipeList.Count); // Skapa slumpmässigt index baserat på antal recept i listan
+        Recipe randomRecipe = recipeList[randomIndex]; // Lagra slumpat recept 
 
         // Visa slumpat recept
         ConsoleStyle.PrintColor($"Recept: {randomRecipe.Name}\n", ConsoleColor.Yellow);

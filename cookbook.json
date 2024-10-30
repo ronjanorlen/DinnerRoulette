@@ -1,28 +1,125 @@
 [
   {
     "Id": 1,
-    "Name": "Namn",
+    "Name": "Tommys pasta salsiccia",
     "Ingredients": [
-      "Ingrediens"
+      "400g pasta, t ex tortiglioni",
+      "Salt",
+      "300g f\u00E4rsk salsicciakorv",
+      "1 dl olivolja",
+      "2 klyftor vitl\u00F6k",
+      "2 tsk f\u00E4nk\u00E5lsfr\u00F6",
+      "0,5 del f\u00E4rsk bladpersilja, finhackad",
+      "1 dl vitt vin",
+      "4 dl passerade tomater",
+      "2 dl parmesanost, finriven",
+      "Svartpeppar, nymalen"
     ],
     "Instructions": [
-      "Instruktion"
+      "Koka pastan enligt anvisning p\u00E5 f\u00F6rpackningen",
+      "Skala och finhacka vitl\u00F6ken. St\u00F6t f\u00E4nk\u00E5lsfr\u00F6na grovt i en mortel",
+      "Snitta korvarna och gr\u00F6p ur f\u00E4rsen",
+      "Fr\u00E4s vitl\u00F6k, f\u00E4nk\u00E5lsfr\u00F6 och salsicciaf\u00E4rg i olivolja i en stekpanna n\u00E5gra minuter",
+      "Tills\u00E4tt vitt vin och l\u00E5t koka in. Tills\u00E4tt passerade tomater och persiljan (spara lite till garnering). L\u00E5t allt koka ihop n\u00E5gra minuter",
+      "H\u00E4ll av pastan och blanda med s\u00E5sen",
+      "Toppa med nymalen svartpeppar, parmesanost och persilja vid servering"
     ],
     "Category": [
-      "Kategori"
+      "Middag"
     ]
   },
   {
     "Id": 2,
-    "Name": "Namn",
+    "Name": "Wokad biff med broccoli",
     "Ingredients": [
-      "Ingrediens"
+      "400g flankstek",
+      "1 msk majsst\u00E4rkelse",
+      "2 msk japansk soja",
+      "3 klyftor vitl\u00F6k",
+      "400g broccoli",
+      "1 gul l\u00F6k",
+      "2 dl ostrons\u00E5s",
+      "2 msk svart risvinvin\u00E4ger (eller balsamvin\u00E4ger)",
+      "2 msk farinsocker",
+      "2 msk rostade sesamfr\u00F6n",
+      "neutral matolja, att steka i",
+      "4 port jasminris,nykokt (till servering)"
     ],
     "Instructions": [
-      "Instruktion"
+      "Sk\u00E4r flanksteken i tunna skivor tv\u00E4rs \u00F6ver fibrerna. Blanda soja och majsst\u00E4rkelse i en bunke. L\u00E4gg i k\u00F6ttet och blanda v\u00E4l",
+      "Skala och finhacka vitl\u00F6ken. Skala och sk\u00E4r l\u00F6ken i tunna klyftor. Sk\u00E4r broccolin i sm\u00E5 buketter",
+      "Hetta upp en stor stekpanna eller wok med lite olja i tills den b\u00F6rjar ryka. Stek k\u00F6ttet i 1 minut s\u00E5 att det f\u00E5r f\u00E4rg runtom. L\u00E4gg \u00F6ver p\u00E5 en tallrik och st\u00E4ll vid spisen",
+      "Hetta upp mer olja till rykande och fr\u00E4s sedan l\u00F6k, vitl\u00F6k och broccoli ca 2-3 minuter under omr\u00F6rning",
+      "L\u00E4gg tillbaka k\u00F6ttet i pannan, h\u00E4ll \u00F6ver ostrons\u00E5s, vin\u00E4ger och str\u00F6 \u00F6ver farinsocker. V\u00E4nd runt och servera genast med nykokt jasminris. Toppa med rostade sesamfr\u00F6n"
     ],
     "Category": [
-      "Kategori"
+      "Middag"
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Avokadomacka med stekt \u00E4gg",
+    "Ingredients": [
+      "1 \u00E4gg",
+      "1 tsk olja",
+      "1 skiva br\u00F6d",
+      "1/2 avokado",
+      "salt",
+      "peppar"
+    ],
+    "Instructions": [
+      "Stek \u00E4gget i oljan i en stekpanna. Salta",
+      "Rosta br\u00F6det",
+      "Dela, k\u00E4rna ur och gr\u00F6p ur avokadon och mosa avokadok\u00F6ttet p\u00E5 br\u00F6det med en gaffel. Salta och peppera",
+      "Toppa mackan med \u00E4gget och servera"
+    ],
+    "Category": [
+      "Frukost"
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Scones",
+    "Ingredients": [
+      "5 dl vetemj\u00F6l",
+      "2 tsk bakpulver",
+      "2 tsk str\u00F6socker",
+      "1/2 tsk salt",
+      "75g svenskt sm\u00F6r fr\u00E5n arla",
+      "2,5 dl filmj\u00F6lk"
+    ],
+    "Instructions": [
+      "S\u00E4tt ugnen p\u00E5 250 grader eller 225 varmluft",
+      "Blanda mj\u00F6l, bakpulver, socker och salt i en bunke. Finf\u00F6rdela sm\u00F6ret i mj\u00F6let. R\u00F6r i filmj\u00F6lken och arbeta raskt ihop till en deg.",
+      "Tag upp degen p\u00E5 en mj\u00F6lad arbetsb\u00E4nk och platta ut till 3 runda kakor, ca 12cm i diameter. l\u00E4gg dem p\u00E5 en pl\u00E5t med bakpl\u00E5tspapper och sk\u00E5ra kakorna korsvis i 4 delar med en vass kniv. Nagga g\u00E4rna med en gaffel",
+      "Gr\u00E4dda i mitten av ugnen 12-15 minuter till fin f\u00E4rg. L\u00E5t svalna p\u00E5 n\u00E5got galler. Servera nybakade scones med sm\u00F6r, ost och marmelad eller f\u00E4rskost och sylt"
+    ],
+    "Category": [
+      "Frukost"
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "Kladdkaka",
+    "Ingredients": [
+      "100g svenskt sm\u00F6r fr\u00E5n Arla",
+      "2,5 dl str\u00F6socker",
+      "2 \u00E4gg",
+      "1 dl vetemj\u00F6l",
+      "3 msk kakao",
+      "1 tsk vaniljsocker",
+      "florsocker (f\u00F6r garnering)"
+    ],
+    "Instructions": [
+      "S\u00E4tt ugnen p\u00E5 175 grader eller 160 varmluft",
+      "Sm\u00E4lt sm\u00F6ret i en kastrull. Lyft av kastrullen fr\u00E5n plattan",
+      "R\u00F6r ner socker och \u00E4gg, blanda v\u00E4l. R\u00F6r ner \u00F6vriga ingredienser s\u00E5 att allt blir v\u00E4l blandat",
+      "H\u00E4ll smeten i en smord och br\u00F6ad form med l\u00F6stagbar kant, ca 24 cm i diameter",
+      "Gr\u00E4dda mitt i ugnen ca 15 min. Kakan blir l\u00E5g med ganska h\u00E5rd yta och lite kladdig i mitten",
+      "L\u00E5t kakan svalna. Pudra \u00F6ver florsocker. Servera med gr\u00E4dde eller glass och frukt"
+    ],
+    "Category": [
+      "Efterr\u00E4tt"
     ]
   }
 ]
