@@ -1,3 +1,4 @@
+using System.Runtime.Serialization.Formatters;
 using ConsoleStyling; // Importera styling-klass från ConsoleStyle
 using Recipes; // Importerar recipe-klass från recipes.cs
 
@@ -69,7 +70,7 @@ namespace CookBook
         // Visa recept via kategorier
         public static void RecipesInCategory(string category)
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // hämta listan
             Console.Clear();
             ConsoleStyle.PrintColor("\nAnge siffran för det recept du vill se. \n", ConsoleColor.DarkYellow);
             ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
@@ -79,9 +80,19 @@ namespace CookBook
             .Where(r => r.Category.Contains(category)) // Hämta recept i vald kategori
             .ToList(); // Lägg i lista
 
-            foreach (var recipe in fromCategory) // Loopa igenom och skriv ut recepten
+            if (fromCategory.Count == 0)
             {
-                ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
+                ConsoleStyle.PrintColor("Det finns inga recept i denna kategori. Vänligen försök igen.\n", ConsoleColor.DarkRed);
+                ConsoleStyle.PrintColor("Eller tryck på valfri tangent för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
+                Console.ReadKey();
+                ShowCategories();
+                return;
+            }
+
+            // Loopa igenom och visa recept i vald kategori
+            for (int i = 0; i < fromCategory.Count; i++)
+            {
+                ConsoleStyle.PrintColor($"[{i}] {fromCategory[i].Name}\n", ConsoleColor.Yellow);
             }
 
             while (true)
@@ -95,32 +106,19 @@ namespace CookBook
                     return;
                 }
 
-                if (!int.TryParse(input, out int recipeId)) // Om input inte är en siffra
+                // Kontrollera input och parsa inmatning
+                if (int.TryParse(input, out int recipeIndex) && recipeIndex >= 0 && recipeIndex < fromCategory.Count)
                 {
-                    ConsoleStyle.PrintColor("Du måste ange en siffra.", ConsoleColor.DarkRed);
-                    ConsoleStyle.PrintColor("Testa igen.\n", ConsoleColor.DarkGray);
-                    continue;
-                }
-
-                // Kontroll att receptet finns i kategorin
-                if (fromCategory.Any(r => r.Id == recipeId))
-                {
-                    RecipeManager.ShowSingleRecipe(recipeId);
+                    RecipeManager.ShowSingleRecipe(recipeIndex); // visa valt recept
                     break;
                 }
                 else
                 {
-                    Console.Clear();
-                    ConsoleStyle.PrintColor("Siffran du angav matchar inget recept i denna kategori. Vänligen försök igen.\n", ConsoleColor.DarkRed);
-                    ConsoleStyle.PrintColor("Välj ett recept ur listan nedan.\n", ConsoleColor.DarkYellow);
-                    foreach (var recipe in fromCategory)
-                    {
-                        ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
-                    }
-                    ConsoleStyle.PrintColor("Eller tryck X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
+                    ConsoleStyle.PrintColor("Ogiltigt val, försök igen.\n", ConsoleColor.DarkRed);
                 }
             }
 
         }
+
     }
 }

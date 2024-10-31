@@ -13,7 +13,7 @@ namespace CookBook
         // Visa alla recept
         public static void ShowAllRecipes()
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // Hämta listan
             Console.Clear();
             ConsoleStyle.PrintColor("ALLA RECEPT\n", ConsoleColor.Yellow);
 
@@ -33,14 +33,9 @@ namespace CookBook
             while (true)
             {
                 // loopa igenom listan med recept
-                foreach (var recipe in recipeList)
+                for (int i = 0; i < recipeList.Count; i++)
                 {
-                    ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}\n", ConsoleColor.Yellow);
-                    ConsoleStyle.PrintColor("Kategori:", ConsoleColor.Yellow);
-                    foreach (var category in recipe.Category)
-                    {
-                        ConsoleStyle.PrintColor($"{category}\n", ConsoleColor.Yellow);
-                    }
+                    ConsoleStyle.PrintColor($"[{i}] {recipeList[i].Name}\n", ConsoleColor.Yellow);
                 }
 
                 // Ta input från användare
@@ -52,13 +47,14 @@ namespace CookBook
                     Console.Clear();
                     Program.DisplayMenu();
                 }
-
-                else if (int.TryParse(input, out int recipeId))
+                // Parsa inmatning
+                else if (int.TryParse(input, out int recipeIndex) && recipeIndex >= 0 && recipeIndex < recipeList.Count)
                 {
                     // Visa receptet som valts
-                    ShowSingleRecipe(recipeId);
+                    ShowSingleRecipe(recipeIndex);
                 }
                 else
+                // Vid ogiltigt val
                 {
                     Console.Clear();
                     ConsoleStyle.PrintColor("Ogiltigt val, ange siffra på receptet du vill se. \n", ConsoleColor.DarkRed);
@@ -70,12 +66,12 @@ namespace CookBook
         }
 
         // Visa valt recept
-        public static void ShowSingleRecipe(int recipeId)
+        public static void ShowSingleRecipe(int recipeIndex)
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // Hämta listan
 
             // Hitta recept med angivet ID
-            var recipe = recipeList.FirstOrDefault(r => r.Id == recipeId);
+            var recipe = recipeList[recipeIndex];
 
             // Om recept hittades, skriv ut
             if (recipe != null)
@@ -101,22 +97,12 @@ namespace CookBook
                 Console.ReadKey();
                 ShowAllRecipes();
             }
-            // Felhantering
-            else
-            {
-                Console.Clear();
-                ConsoleStyle.PrintColor("Det finns inget recept med den angivna siffran.\n", ConsoleColor.DarkRed);
-                ConsoleStyle.PrintColor("\nTryck på valfri tangent för att återgå till alla recept.\n", ConsoleColor.DarkGray);
-                Console.ReadKey();
-                Console.Clear();
-                ShowAllRecipes();
-            }
         }
 
         // Lägg till recept
         public static void AddNewRecipe()
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // Hämta listan
             Console.Clear();
             ConsoleStyle.PrintColor("LÄGG TILL NYTT RECEPT\n", ConsoleColor.Yellow);
 
@@ -127,12 +113,14 @@ namespace CookBook
 
                 string? addRecipe = Console.ReadLine()?.ToUpper();
 
+                // Om inmatning är X gå till huvudmenyn
                 if (addRecipe == "X")
                 {
                     Console.Clear();
                     Program.DisplayMenu();
                     return;
                 }
+                // Om inmatning är 1, bryt loopen och låt användaren lägga till recept
                 else if (addRecipe == "1")
                 {
                     Console.Clear();
@@ -140,6 +128,7 @@ namespace CookBook
                 }
                 else
                 {
+                    // Om felaktig inmatning
                     Console.Clear();
                     ConsoleStyle.PrintColor("Ogiltigt val, försök igen.\n", ConsoleColor.DarkRed);
                 }
@@ -147,16 +136,13 @@ namespace CookBook
 
             Recipe newRecipe = new Recipe(); // Nytt objekt
 
-            // Generera ID till recept baserat på listan
-            newRecipe.Id = recipeList.Count + 1;
-
             // Kontroll för tom inmatning
             while (true)
             {
                 ConsoleStyle.PrintColor("Ange namn för recept:\n", ConsoleColor.Yellow);
                 newRecipe.Name = Console.ReadLine();
 
-                if (string.IsNullOrEmpty(newRecipe.Name))
+                if (string.IsNullOrEmpty(newRecipe.Name)) // om inget namn anges
                 {
                     Console.Clear();
                     ConsoleStyle.PrintColor("Du måste ange ett namn för receptet.\n", ConsoleColor.DarkRed);
@@ -173,28 +159,41 @@ namespace CookBook
                 ConsoleStyle.PrintColor("Ange ingredienser:\n", ConsoleColor.Yellow);
                 ConsoleStyle.PrintColor("Tryck enter mellan varje ingrediens.", ConsoleColor.DarkYellow);
                 ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
-                List<string> ingredients = new List<string>(); // Skapa lista med ingredienser
-                string? input;
 
-                while ((input = Console.ReadLine())?.ToLower() != "ok") // Så länge input inte "ok" lägg till ingredienser i listan
+                List<string> ingredients = new List<string>(); // Skapa lista med instruktioner
+
+                string? ingredientInput;
+
+                while (true)
                 {
-                    if (!string.IsNullOrEmpty(input))
-                    {
-                        ingredients.Add(input);
-                    }
-                }
-                newRecipe.Ingredients = ingredients.ToArray();
-                Console.Clear();
+                    ingredientInput = Console.ReadLine()?.Trim().ToLower();
 
-                if (ingredients.Count == 0) // Om ingen ingrediens läggs till
+                    if (ingredientInput == "ok") // när användare skriver ok bryt loopen
+                    {
+                        break;
+                    }
+
+                    if (!string.IsNullOrEmpty(ingredientInput))
+                    {
+                        ingredients.Add(ingredientInput); // lägg till ingredienser
+                    }
+                    else
+                    {
+                        ConsoleStyle.PrintColor("Lägg till minst 1 ingrediens.\n", ConsoleColor.DarkRed);
+                    }
+
+                }
+                // om användaren skriver ok utan att lägga till ingrediens
+                if (ingredients.Count == 0)
                 {
                     Console.Clear();
-                    ConsoleStyle.PrintColor("Lägg till minst 1 ingrediens.\n", ConsoleColor.DarkRed);
+                    ConsoleStyle.PrintColor("Ogiltig inmatning.\n", ConsoleColor.DarkRed);
                 }
                 else
                 {
+                    newRecipe.Ingredients = ingredients.ToArray(); // lägg till ingredienserna i array
                     Console.Clear();
-                    break; // Avbryt när ingredienser är ifyllt
+                    break; // Avbryt när ingredienser är tillagt
                 }
             }
 
@@ -203,28 +202,42 @@ namespace CookBook
                 ConsoleStyle.PrintColor("Ange instruktioner:\n", ConsoleColor.Yellow);
                 ConsoleStyle.PrintColor("Tryck enter mellan varje instruktion.", ConsoleColor.DarkYellow);
                 ConsoleStyle.PrintColor("Skriv ok när du är klar.\n", ConsoleColor.DarkYellow);
+
                 List<string> instructions = new List<string>(); // Skapa lista med instruktioner
-                string? input;
 
-                while ((input = Console.ReadLine())?.ToLower() != "ok") // Så länge input inte är "ok" lägg till instruktion
+                string? instructionInput;
+
+                while (true)
                 {
-                    if (!string.IsNullOrEmpty(input))
-                    {
-                        instructions.Add(input);
-                    }
-                }
-                newRecipe.Instructions = instructions.ToArray();
-                Console.Clear();
+                    instructionInput = Console.ReadLine()?.Trim().ToLower();
 
-                if (instructions.Count == 0) // Om ingen instruktion läggs till
+                    if (instructionInput == "ok") // när användare skriver ok, bryt loopen
+                    {
+                        break;
+                    }
+
+                    if (!string.IsNullOrEmpty(instructionInput))
+                    {
+                        instructions.Add(instructionInput); // lägg till instruktioner
+                    }
+                    else
+                    {
+                        ConsoleStyle.PrintColor("Lägg till minst 1 instruktion.\n", ConsoleColor.DarkRed);
+                    }
+
+                }
+
+                // om användaren skriver ok utan att lägga till instruktion
+                if (instructions.Count == 0)
                 {
                     Console.Clear();
-                    ConsoleStyle.PrintColor("Lägg till minst 1 instruktion.\n", ConsoleColor.DarkRed);
+                    ConsoleStyle.PrintColor("Ogiltig inmatning.\n", ConsoleColor.DarkRed);
                 }
                 else
                 {
+                    newRecipe.Instructions = instructions.ToArray(); // lägg instruktioner i en array
                     Console.Clear();
-                    break; // Avbryt när ingredienser är ifyllt
+                    break; // Avbryt när ingredienser är tillagt
                 }
             }
 
@@ -252,10 +265,7 @@ namespace CookBook
                 }
             }
 
-
-
-
-            // Lägg till ny kategori
+            // Lägg till en ny kategori
             while (true)
             {
                 string? catInput = Console.ReadLine()?.ToUpper();
@@ -275,8 +285,6 @@ namespace CookBook
                     }
                     break;
                 }
-
-
 
                 else if (catInput == "A" && allCategories.Count > 0)
                 {
@@ -325,7 +333,7 @@ namespace CookBook
         // Slumpa fram recept
         public static void RandomRecipe()
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // Hämta listan
             Console.Clear();
             ConsoleStyle.PrintColor("SLUMPAR FRAM RECEPT\n", ConsoleColor.DarkYellow);
 
@@ -333,7 +341,7 @@ namespace CookBook
             for (int i = 3; i > 0; i--)
             {
                 ConsoleStyle.PrintColor($"{i} ", ConsoleColor.DarkYellow); // Skriv ut 3 2 1
-                Thread.Sleep(1000); // Använder thread.sleep för fördrökning av siffrorna
+                Thread.Sleep(1000); // Använder thread.sleep för fördröjning av siffrorna
             }
 
             Console.Clear();
@@ -355,14 +363,19 @@ namespace CookBook
             Recipe randomRecipe = recipeList[randomIndex]; // Lagra slumpat recept 
 
             // Visa slumpat recept
+            // Namn
             ConsoleStyle.PrintColor($"Recept: {randomRecipe.Name}\n", ConsoleColor.Yellow);
+
+            // Ingredienser
             ConsoleStyle.PrintColor("Ingredienser:\n", ConsoleColor.Yellow);
             foreach (var ingredient in randomRecipe.Ingredients)
             {
                 ConsoleStyle.PrintColor($"- {ingredient}", ConsoleColor.DarkYellow);
             }
 
+            // Instruktioner
             ConsoleStyle.PrintColor("\nInstruktioner:\n", ConsoleColor.Yellow);
+            // Skriv steg, 1: gör detta, 2: gör detta, etc
             for (int i = 0; i < randomRecipe.Instructions.Length; i++)
             {
                 ConsoleStyle.PrintColor($"{i + 1}. {randomRecipe.Instructions[i]}", ConsoleColor.DarkYellow);
@@ -392,16 +405,16 @@ namespace CookBook
         // Ta bort recept
         public static void RemoveRecipe()
         {
-            var recipeList = Program.GetRecipeList();
+            var recipeList = Program.GetRecipeList(); // Hämta listan
             Console.Clear();
             ConsoleStyle.PrintColor("TA BORT RECEPT\n", ConsoleColor.Red);
             ConsoleStyle.PrintColor("Ange ID för det recept du vill ta bort.\n", ConsoleColor.DarkYellow);
             ConsoleStyle.PrintColor("Tryck på X för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
 
-            // Visa alla recept
-            foreach (var recipe in recipeList)
+            // loopa igenom listan med recept
+            for (int i = 0; i < recipeList.Count; i++)
             {
-                ConsoleStyle.PrintColor($"{recipe.Id}: {recipe.Name}", ConsoleColor.Yellow);
+                ConsoleStyle.PrintColor($"[{i}] {recipeList[i].Name}\n", ConsoleColor.Yellow);
             }
 
             // Om det inte finns några recept att visa
@@ -414,11 +427,13 @@ namespace CookBook
                 Program.DisplayMenu();
             }
 
+            // While-loop för kontroll av inmatning från användare
             while (true)
             {
 
                 string? delete = Console.ReadLine();
 
+                // Om inmatning är X, gå till huvudmenyn
                 if (delete?.ToUpper() == "X")
                 {
                     Console.Clear();
@@ -427,38 +442,25 @@ namespace CookBook
                 }
 
                 // Parsa inmatning
-                if (int.TryParse(delete, out int recipeId))
+                if (int.TryParse(delete, out int recipeIndex) && recipeIndex >= 0 && recipeIndex < recipeList.Count)
                 {
-                    // Hitta inmatat ID
-                    var recipeToRemove = recipeList.FirstOrDefault(r => r.Id == recipeId);
-
-                    if (recipeToRemove != null)
-                    {
-                        recipeList.Remove(recipeToRemove);
-                        Program.SaveRecipes();
-                        Console.Clear();
-                        ConsoleStyle.PrintColor("Receptet har tagits bort.\n", ConsoleColor.DarkYellow);
-                        ConsoleStyle.PrintColor("Tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
-                        Console.ReadKey();
-                        Console.Clear();
-                        Program.DisplayMenu();
-                        return;
-                    }
-                    // Om användare anger felaktigt ID
-                    else
-                    {
-                        ConsoleStyle.PrintColor("ID:et hittades inte, försök igen.\n", ConsoleColor.DarkRed);
-                    }
+                    recipeList.RemoveAt(recipeIndex); // Ta bort recept
+                    Program.SaveRecipes(); // spara listan
+                    Console.Clear();
+                    ConsoleStyle.PrintColor("Receptet har tagits bort.\n", ConsoleColor.DarkYellow);
+                    ConsoleStyle.PrintColor("Tryck på valfri tangent för att återgå till huvudmenyn.\n", ConsoleColor.DarkGray);
+                    Console.ReadKey();
+                    Console.Clear();
+                    Program.DisplayMenu();
+                    return;
                 }
-                // Om användaren skriver bokstäver ist för siffra
+                // Om användare anger felaktigt ID
                 else
                 {
-                    ConsoleStyle.PrintColor("Ogiltig inmatning, försök igen.\n", ConsoleColor.DarkRed);
+                    ConsoleStyle.PrintColor("ID:et hittades inte, försök igen.\n", ConsoleColor.DarkRed);
                 }
             }
-
         }
-
 
     }
 

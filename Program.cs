@@ -15,7 +15,7 @@ namespace CookBook
         // Metod för att kunna hämta listan
         public static List<Recipe> GetRecipeList()
         {
-            return recipeList;
+            return recipeList; // Returnera lista
         }
 
 
@@ -35,6 +35,7 @@ namespace CookBook
 
             char option = Console.ReadKey(true).KeyChar;
 
+            // Switch-sats för menynvalen
             switch (option)
             {
                 case '1':
@@ -62,6 +63,7 @@ namespace CookBook
                     Quit();
                     break;
 
+                // Vid felaktig inmatning
                 default:
                     Console.Clear();
                     ConsoleStyle.PrintColor("Ogiltigt val, vänligen försök igen.\n", ConsoleColor.DarkRed);
