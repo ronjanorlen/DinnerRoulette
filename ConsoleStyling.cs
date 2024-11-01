@@ -1,6 +1,6 @@
 using System;
 
-namespace ConsoleStyling
+namespace CookBook
 {
     public static class ConsoleStyle
     {

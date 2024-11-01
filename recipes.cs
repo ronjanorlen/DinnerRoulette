@@ -1,6 +1,6 @@
 using System;
 
-namespace Recipes
+namespace CookBook
 {
     class Recipe
     {
