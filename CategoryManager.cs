@@ -11,7 +11,7 @@ namespace CookBook
         {
             var recipeList = Program.GetRecipeList();
             Console.Clear();
-            ConsoleStyle.PrintColor("Alla kategorier\n", ConsoleColor.Yellow);
+            ConsoleStyle.PrintColor("ALLA KATEGORIER\n", ConsoleColor.Yellow);
 
             // Hämta kategorier
             List<string> allCategories = recipeList
@@ -79,15 +79,6 @@ namespace CookBook
             List<Recipe> fromCategory = recipeList
             .Where(r => r.Category.Contains(category)) // Hämta recept i vald kategori
             .ToList(); // Lägg i lista
-
-            if (fromCategory.Count == 0)
-            {
-                ConsoleStyle.PrintColor("Det finns inga recept i denna kategori. Vänligen försök igen.\n", ConsoleColor.DarkRed);
-                ConsoleStyle.PrintColor("Eller tryck på valfri tangent för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
-                Console.ReadKey();
-                ShowCategories();
-                return;
-            }
 
             // Loopa igenom och visa recept i vald kategori
             for (int i = 0; i < fromCategory.Count; i++)
