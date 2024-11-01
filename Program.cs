@@ -5,7 +5,7 @@ using ConsoleStyling; // Importerar styling-klass från ConsoleStyling.cs
 namespace CookBook
 {
 
-    internal class Program
+     class Program
     {
 
         // Skapa lista med JSON
