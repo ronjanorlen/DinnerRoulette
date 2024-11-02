@@ -91,7 +91,7 @@ namespace CookBook
         public static void Quit()
         {
             Console.Clear();
-            ConsoleStyle.PrintBold("\nHAPPY COOKING :) \n");
+            ConsoleStyle.PrintColor("\nHAPPY COOKING :) \n", ConsoleColor.DarkBlue);
             Environment.Exit(0); // Avsluta programmet
         }
 
