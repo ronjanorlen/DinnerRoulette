@@ -49,7 +49,7 @@ namespace CookBook
                 else if (int.TryParse(input, out int recipeIndex) && recipeIndex >= 0 && recipeIndex < recipeList.Count)
                 {
                     // Visa receptet som valts
-                    ShowSingleRecipe(recipeIndex);
+                    ShowSingleRecipe(recipeList[recipeIndex]);
                 }
                 else
                 // Vid ogiltigt val
@@ -64,13 +64,9 @@ namespace CookBook
         }
 
         // Visa valt recept
-        public static void ShowSingleRecipe(int recipeIndex)
+        public static void ShowSingleRecipe(Recipe recipe)
         {
-            var recipeList = Program.GetRecipeList(); // Hämta listan
-
-            // Hitta recept med angivet ID
-            var recipe = recipeList[recipeIndex];
-
+    
             // Om recept hittades, skriv ut
             if (recipe != null)
             {

@@ -99,7 +99,7 @@ namespace CookBook
                 // Kontrollera input och parsa inmatning
                 if (int.TryParse(input, out int recipeIndex) && recipeIndex >= 0 && recipeIndex < fromCategory.Count)
                 {
-                    RecipeManager.ShowSingleRecipe(recipeIndex); // visa valt recept
+                    RecipeManager.ShowSingleRecipe(fromCategory[recipeIndex]); // visa valt recept
                     break;
                 }
                 else
