@@ -20,7 +20,7 @@ namespace CookBook
         // Meny
         public static void DisplayMenu()
         {
-            ConsoleStyle.PrintColor("\nVälkommen till kokboken!", ConsoleColor.DarkBlue);
+            ConsoleStyle.PrintColor("\nVälkommen till DinnerRoulette!", ConsoleColor.DarkBlue);
 
             ConsoleStyle.PrintColor("\n1 - Visa alla recept", ConsoleColor.Yellow);
             ConsoleStyle.PrintColor("2 - Visa alla kategorier", ConsoleColor.Yellow);
