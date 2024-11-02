@@ -240,7 +240,7 @@ namespace CookBook
             }
 
 
-            // Hantera kategorier
+            // Hantera kategorier med Linq-metoder
             List<string> allCategories = recipeList
             .SelectMany(r => r.Category) // Hämta kategorierna
             .Distinct() // Sortera ut ev dubletter

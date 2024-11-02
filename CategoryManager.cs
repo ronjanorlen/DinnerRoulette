@@ -12,7 +12,7 @@ namespace CookBook
             Console.Clear();
             ConsoleStyle.PrintColor("ALLA KATEGORIER\n", ConsoleColor.Yellow);
 
-            // Hämta kategorier
+            // Hämta kategorier med Linq-metoder
             List<string> allCategories = recipeList
                 .SelectMany(r => r.Category) // Ta alla kategorier från recepten
                 .Distinct() // Ta bort ev. dubletter
@@ -74,7 +74,7 @@ namespace CookBook
             ConsoleStyle.PrintColor("\nAnge siffran för det recept du vill se. \n", ConsoleColor.DarkYellow);
             ConsoleStyle.PrintColor("Tryck på X för att gå tillbaka till alla kategorier.\n", ConsoleColor.DarkGray);
 
-            // Filtrera ur recept från vald kategori
+            // Filtrera ur recept från vald kategori med Linq-metoder
             List<Recipe> fromCategory = recipeList
             .Where(r => r.Category.Contains(category)) // Hämta recept i vald kategori
             .ToList(); // Lägg i lista
